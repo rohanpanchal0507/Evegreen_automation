@@ -1,0 +1,19 @@
+{
+  "name": "quotation_automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.spec.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.7.0",
+    "xlsx": "^0.18.5"
+  }
+}
