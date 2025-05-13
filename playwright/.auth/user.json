@@ -2,30 +2,30 @@
   "cookies": [
     {
       "name": "CLID",
-      "value": "ef7182c64d1349598be225b4ac72afb1.20250511.20260511",
+      "value": "f3323af62a2f45c6ab18f3b124d35a9f.20250513.20260513",
       "domain": "www.clarity.ms",
       "path": "/",
-      "expires": 1778493718.779265,
+      "expires": 1778661830.042794,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_clck",
-      "value": "19736zf%7C2%7Cfvt%7C0%7C1957",
+      "value": "1ofe78j%7C2%7Cfvv%7C0%7C1959",
       "domain": ".evergreenseamless.com",
       "path": "/",
-      "expires": 1778493719,
+      "expires": 1778661830,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "MUID",
-      "value": "21A47F15C3CB6F311BF06AFCC21E6EDB",
+      "value": "16E27D279A1D6C5B33E068CC9BD46D57",
       "domain": ".bing.com",
       "path": "/",
-      "expires": 1780653724.020584,
+      "expires": 1780821834.309092,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -35,17 +35,17 @@
       "value": "0",
       "domain": ".c.bing.com",
       "path": "/",
-      "expires": 1747562524.020686,
+      "expires": 1747730634.309185,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "SRM_B",
-      "value": "21A47F15C3CB6F311BF06AFCC21E6EDB",
+      "value": "16E27D279A1D6C5B33E068CC9BD46D57",
       "domain": ".c.bing.com",
       "path": "/",
-      "expires": 1780653724.020722,
+      "expires": 1780821834.309222,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -62,10 +62,10 @@
     },
     {
       "name": "MUID",
-      "value": "21A47F15C3CB6F311BF06AFCC21E6EDB",
+      "value": "16E27D279A1D6C5B33E068CC9BD46D57",
       "domain": ".clarity.ms",
       "path": "/",
-      "expires": 1780653725.167173,
+      "expires": 1780821833.447471,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -75,7 +75,7 @@
       "value": "0",
       "domain": ".c.clarity.ms",
       "path": "/",
-      "expires": 1747562525.167235,
+      "expires": 1747730633.44755,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -85,17 +85,17 @@
       "value": "0",
       "domain": ".c.clarity.ms",
       "path": "/",
-      "expires": 1746958325.167265,
+      "expires": 1747126433.447595,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_clsk",
-      "value": "1wsrbh%7C1746957728011%7C2%7C1%7Cl.clarity.ms%2Fcollect",
+      "value": "bga546%7C1747125837768%7C2%7C1%7Cl.clarity.ms%2Fcollect",
       "domain": ".evergreenseamless.com",
       "path": "/",
-      "expires": 1747044128,
+      "expires": 1747212237,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -115,7 +115,7 @@
         },
         {
           "name": "token",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0NiwidXNlcm5hbWUiOiJHcmVlbiBBcnJvdyIsImlhdCI6MTc0Njk1NzcyNSwiZXhwIjoxNzQ4MjE3NjAwfQ.Bk-3f0K0EBoMww38-HI0Fq2lKwY_UdgdXFVPe5qOqrw"
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0NiwidXNlcm5hbWUiOiJHcmVlbiBBcnJvdyIsImlhdCI6MTc0NzEyNTgzNCwiZXhwIjoxNzQ4MzkwNDAwfQ.nEW1GsZK71JsCCA07Fp9zutHRcICTnAK5hWcYo4x97s"
         },
         {
           "name": "user",
@@ -127,7 +127,7 @@
         },
         {
           "name": "gleap-widget-config-MUYkFaomRZDFwKtzWCO8WH2DIYLQKObz-en-us",
-          "value": "{\"flowConfig\":{\"newsMenuLabel\":\"News\",\"checklistMenuLabel\":\"Tasks\",\"featureRequestsMenuLabel\":\"Roadmap\",\"allConversationsMenuLabel\":\"Messages\",\"knowledgeBaseMenuLabel\":\"Help\",\"welcomeText\":\"How can we help you today?\",\"replyTime\":\"We usually reply within a few minutes\",\"color\":\"#007a5c\",\"bgType\":\"classic\",\"animateBG\":false,\"vision\":true,\"bgBlur\":false,\"backgroundColor\":\"#ffffff\",\"headerColor\":\"#007a5c\",\"headerColor2\":\"#007a5c\",\"headerColor3\":\"#75D2DA\",\"buttonColor\":\"#007a5c\",\"borderRadius\":21,\"buttonX\":\"60\",\"buttonY\":\"10\",\"operatorAvatarImage\":\"\",\"operatorName\":\"Kai\",\"logo\":\"https://staticfiles.gleap.io/gfeedback_widgets/4CQiEldZzcDbFFsgVmXTnY9FnGP5SjMnwot1D9LGfpkEObv3ushDDH4H0tsRBL2Sw1W5GuR9oDy.svg\",\"buttonLogo\":\"\",\"customCSS\":\"\",\"hideFeatureRequests\":false,\"hideNews\":false,\"hideAllConversations\":false,\"hideKnowledgeBase\":true,\"openingTimes\":[{\"day\":\"Weekdays\",\"openingTime\":\"09:00\",\"closingTime\":\"17:00\"}],\"timezone\":\"Asia/Kolkata\",\"showOnlineStatus\":true,\"spamProtection\":false,\"hideBranding\":true,\"enableConsoleLogs\":true,\"showHomeHelpCenter\":true,\"enableReplays\":false,\"enableWebReplays\":true,\"hideForGuests\":false,\"replaysInterval\":5,\"thankYouDuration\":3000,\"enableNetworkLogs\":true,\"sendNetworkResources\":false,\"networkLogPropsToIgnore\":[],\"networkLogBlacklist\":[],\"enablePrivacyPolicy\":false,\"enableShortcuts\":false,\"privacyPolicyURL\":\"\",\"enableMenu\":true,\"menuItems\":[{\"title\":\"Report an issue\",\"description\":\"Found a bug? Let us know.\",\"icon\":\"https://gleapcdn.com/res/iconbug.svg\",\"actionType\":\"bugreporting\",\"color\":\"#F4CAC8\"},{\"title\":\"Request a feature\",\"description\":\"What would you like to see next?\",\"icon\":\"https://gleapcdn.com/res/iconidea.svg\",\"actionType\":\"featurerequests\",\"color\":\"#FFEEC2\"},{\"title\":\"Send us a message\",\"description\":\"We are here to help.\",\"icon\":\"https://gleapcdn.com/res/iconcontact.svg\",\"actionType\":\"BOT\",\"color\":\"#EFE2FF\"}],\"activationMethodFeedbackButton\":true,\"activationMethodShake\":false,\"activationMethodScreenshotGesture\":false,\"enableCrashDetector\":false,\"crashDetectorIsSilent\":false,\"enableRageClickDetector\":false,\"rageClickDetectorIsSilent\":false,\"enableNetworkLogFilters\":false,\"jsMajorVersion\":\"v6\",\"enableIntercomCompatibilityMode\":true,\"hideWavingHandAfterName\":false,\"hideUsersName\":false,\"hideTeam\":false,\"widgetButtonText\":\"Feedback\",\"showInfoPopup\":false,\"feedbackButtonPosition\":\"BUTTON_CLASSIC\",\"helpcenterConfig\":{\"kaiAnswers\":true,\"localization\":[{\"language\":\"en\",\"title\":\"Help center\",\"description\":\"Find answers to your questions\"}],\"config\":{\"logoUrl\":\"\"}},\"staticTranslations\":{\"scheduled\":\"✅ Scheduled\",\"done\":\"Done\",\"Reply\":\"Reply\",\"next\":\"Next\",\"previous\":\"Previous\",\"unmuteModalTitle\":\"This tour contains audio. Do you want to unmute?\",\"unmuteModalButton\":\"Yes, unmute\",\"unmuteModalContinue\":\"Continue without audio\",\"invalidNumberMessage\":\"Please reply with a valid number.\",\"unsupportedInputType\":\"This input type is not supported.\",\"invalidEmailMessage\":\"Please reply with a valid email address.\",\"plainTextRatingMessage\":\"Kindly reply with a number on a scale of 1 (poor quality) to 5 (excellent).\",\"unsubscribeFromEmails\":\"Unsubscribe from these emails\",\"wrongApiKey\":\"Wrong API key\",\"kaiJoinedSession\":\"has joined the session\",\"kaiGatheringInformation\":\"Gathering information...\",\"kaiThinking\":\"Thinking...\",\"kaiListening\":\"Listening...\",\"kaiReportABug\":\"Report a bug\",\"kaiIssue\":\"Unfortunately, I'm not able to answer your question at the moment.\",\"kaiAnswerTag\":\"Answer\",\"kaiSources\":\"Source\",\"kaiSubmitIdea\":\"Submit my idea\",\"kaiSubmitIdeaDone\":\"Back to Home\",\"featureRequestSort\":\"Most votes\",\"featureRequestSortDate\":\"Recent\",\"featureRequestStatus\":\"Status\",\"featureRequestTags\":\"Tags\",\"nothingFoundTitle\":\"Nothing found\",\"nothingFoundDescription\":\"Try to reset the filters to see more feature requests.\",\"nothingUnseenTitle\":\"Nothing unread, good job 💪\",\"nothingUnseenDescription\":\"There are no unread feature requests waiting for you.\",\"noFeatureRequestsTitle\":\"No feature requests yet\",\"noFeatureRequestsDescription\":\"New feature requests will show up, as soon as they get reported.\",\"resetFiltersOr\":\"Try to reset the filters or\",\"submitNewFeatureRequrest\":\"submit a new feature request\",\"email\":\"E-mail\",\"yourEmail\":\"Your e-mail\",\"markTheBug\":\"Mark the bug\",\"recordScreen\":\"Record screen\",\"clickAndDragToMarkTheBug\":\"Click and drag to mark the bug\",\"retry\":\"Retry\",\"mute\":\"Mute\",\"unmute\":\"Unmute\",\"browserNotSupported\":\"Browser not supported\",\"stopRecording\":\"Stop recording\",\"startRecording\":\"Start recording\",\"pickAColor\":\"Pick a color\",\"taskProgress\":\"{a} of {b} done\",\"aboutMinutes\":\"About {a} minutes left\",\"markAsDone\":\"Mark as done\",\"nextStep\":\"Next step\",\"undo\":\"Undo\",\"drawOnTheScreenToMarkTheBug\":\"Draw on the screen to mark the bug\",\"recordYourScreenToShowcaseTheBug\":\"Record your screen to showcase the bug\",\"writeReply\":\"Write a reply...\",\"recording\":\"Recording...\",\"chooseOption\":\"Choose one...\",\"chooseBotOption\":\"Please choose an option below.\",\"screenRecording\":\"Screen recording\",\"screenshot\":\"Screenshot\",\"within a few minutes\":\"within a few minutes\",\"within a few hours\":\"within a few hours\",\"within a day\":\"within a day\",\"weAreOffline\":\"We are currently offline but will get back to you as soon as possible.\",\"weAreBack\":\"We are back\",\"ppolicyIRead\":\"I read and accept the \",\"ppolicy\":\"privacy policy\",\"noMessages\":\"No messages yet\",\"submit\":\"Submit\",\"homeLabel\":\"Home\",\"chooseFile\":\"Choose a file or drag it here.\",\"hi\":\"Hi\",\"sendMessage\":\"Send us a message\",\"noChecklists\":\"You completed all tasks.\",\"noNews\":\"No news published yet.\",\"loadMore\":\"Load more\",\"suggestFeatureRequest\":\"We found existing feature requests that might align with your idea. Upvote the ones you like or go ahead and submit your own idea.\",\"conversationEnded\":\"Your conversation has ended.\",\"wrongConversationChannel\":\"To continue this conversation, please switch to {channel}.\",\"featureRequestShow\":\"Show\",\"composerGreeting\":\"Hey\",\"featureRequestSortRandom\":\"Random\",\"requestFeature\":\"Request a feature\",\"search\":\"Search...\",\"botReplyTime\":\"Our bot will reply instantly\",\"submitted\":\"Submitted\",\"inProgress\":\"In progress\",\"resolved\":\"Resolved\",\"noAnswer\":\"No answer found.\",\"featureRequests\":\"Feature requests\",\"roadmap\":\"Roadmap\",\"news\":\"News\",\"notDone\":\"Not done\",\"released\":\"Released\",\"all\":\"All\",\"comments\":\"Comments\",\"updates\":\"Updates\",\"writeComment\":\"Write a comment\",\"writeCommentPlaceholder\":\"Write a comment...\",\"send\":\"Send\",\"noComments\":\"No comments yet\",\"noUpdates\":\"No updates yet\",\"kickstartTheConversation\":\"Kickstart the conversation by writing a comment.\",\"weWillPostUpdates\":\"We will post updates on this feature request here.\",\"conversationHistoryMailMessage\":\"Hey there, we’ve attached the history of your last conversation.\"},\"fadebg\":true,\"stn\":true,\"sts\":true,\"stt\":true,\"visibleTeamMembers\":[\"64a50bcb812dfc547f25b7a1\",\"6759dc98e1a7594811091396\",\"6757d7071f07684d560b41be\"],\"name\":\"Evergreen ERP\",\"localizationOptions\":{\"language\":\"en\",\"rtl\":false}},\"projectActions\":{}}"
+          "value": "{\"flowConfig\":{\"newsMenuLabel\":\"News\",\"checklistMenuLabel\":\"Tasks\",\"featureRequestsMenuLabel\":\"Roadmap\",\"allConversationsMenuLabel\":\"Messages\",\"knowledgeBaseMenuLabel\":\"Help\",\"welcomeText\":\"How can we help you today?\",\"replyTime\":\"We usually reply within a few minutes\",\"color\":\"#007a5c\",\"bgType\":\"classic\",\"animateBG\":false,\"vision\":true,\"bgBlur\":false,\"backgroundColor\":\"#ffffff\",\"headerColor\":\"#007a5c\",\"headerColor2\":\"#007a5c\",\"headerColor3\":\"#75D2DA\",\"buttonColor\":\"#007a5c\",\"borderRadius\":21,\"buttonX\":\"60\",\"buttonY\":\"10\",\"operatorAvatarImage\":\"\",\"operatorName\":\"Kai\",\"logo\":\"https://staticfiles.gleap.io/gfeedback_widgets/4CQiEldZzcDbFFsgVmXTnY9FnGP5SjMnwot1D9LGfpkEObv3ushDDH4H0tsRBL2Sw1W5GuR9oDy.svg\",\"buttonLogo\":\"\",\"customCSS\":\"\",\"hideFeatureRequests\":false,\"hideNews\":false,\"hideAllConversations\":false,\"hideKnowledgeBase\":true,\"openingTimes\":[{\"day\":\"Weekdays\",\"openingTime\":\"09:00\",\"closingTime\":\"17:00\"}],\"timezone\":\"Asia/Kolkata\",\"showOnlineStatus\":true,\"spamProtection\":false,\"hideBranding\":true,\"enableConsoleLogs\":true,\"showHomeHelpCenter\":true,\"enableReplays\":false,\"enableWebReplays\":true,\"hideForGuests\":false,\"replaysInterval\":5,\"thankYouDuration\":3000,\"enableNetworkLogs\":true,\"sendNetworkResources\":false,\"networkLogPropsToIgnore\":[],\"networkLogBlacklist\":[],\"enablePrivacyPolicy\":false,\"enableShortcuts\":false,\"privacyPolicyURL\":\"\",\"enableMenu\":true,\"menuItems\":[{\"title\":\"Report an issue\",\"description\":\"Found a bug? Let us know.\",\"icon\":\"https://gleapcdn.com/res/iconbug.svg\",\"actionType\":\"bugreporting\",\"color\":\"#F4CAC8\"},{\"title\":\"Request a feature\",\"description\":\"What would you like to see next?\",\"icon\":\"https://gleapcdn.com/res/iconidea.svg\",\"actionType\":\"featurerequests\",\"color\":\"#FFEEC2\"},{\"title\":\"Send us a message\",\"description\":\"We are here to help.\",\"icon\":\"https://gleapcdn.com/res/iconcontact.svg\",\"actionType\":\"BOT\",\"color\":\"#EFE2FF\"}],\"activationMethodFeedbackButton\":true,\"activationMethodShake\":false,\"activationMethodScreenshotGesture\":false,\"enableCrashDetector\":false,\"crashDetectorIsSilent\":false,\"enableRageClickDetector\":false,\"rageClickDetectorIsSilent\":false,\"enableNetworkLogFilters\":false,\"jsMajorVersion\":\"v6\",\"enableIntercomCompatibilityMode\":true,\"hideWavingHandAfterName\":false,\"hideUsersName\":false,\"hideTeam\":false,\"widgetButtonText\":\"Feedback\",\"showInfoPopup\":false,\"feedbackButtonPosition\":\"BUTTON_CLASSIC\",\"helpcenterConfig\":{\"kaiAnswers\":true,\"localization\":[{\"language\":\"en\",\"title\":\"Help center\",\"description\":\"Find answers to your questions\"}],\"config\":{\"logoUrl\":\"\"}},\"staticTranslations\":{\"scheduled\":\"✅ Scheduled\",\"done\":\"Done\",\"open\":\"Open\",\"Reply\":\"Reply\",\"next\":\"Next\",\"previous\":\"Previous\",\"unmuteModalTitle\":\"This tour contains audio. Do you want to unmute?\",\"unmuteModalButton\":\"Yes, unmute\",\"unmuteModalContinue\":\"Continue without audio\",\"invalidNumberMessage\":\"Please reply with a valid number.\",\"unsupportedInputType\":\"This input type is not supported.\",\"invalidEmailMessage\":\"Please reply with a valid email address.\",\"plainTextRatingMessage\":\"Kindly reply with a number on a scale of 1 (poor quality) to 5 (excellent).\",\"unsubscribeFromEmails\":\"Unsubscribe from these emails\",\"wrongApiKey\":\"Wrong API key\",\"kaiJoinedSession\":\"has joined the session\",\"kaiGatheringInformation\":\"Gathering information...\",\"kaiThinking\":\"Thinking...\",\"kaiListening\":\"Listening...\",\"kaiReportABug\":\"Report a bug\",\"kaiIssue\":\"Unfortunately, I'm not able to answer your question at the moment.\",\"kaiAnswerTag\":\"Answer\",\"kaiSources\":\"Source\",\"kaiSubmitIdea\":\"Submit my idea\",\"kaiSubmitIdeaDone\":\"Back to Home\",\"featureRequestSort\":\"Most votes\",\"featureRequestSortDate\":\"Recent\",\"featureRequestStatus\":\"Status\",\"featureRequestTags\":\"Tags\",\"nothingFoundTitle\":\"Nothing found\",\"nothingFoundDescription\":\"Try to reset the filters to see more feature requests.\",\"nothingUnseenTitle\":\"Nothing unread, good job 💪\",\"nothingUnseenDescription\":\"There are no unread feature requests waiting for you.\",\"noFeatureRequestsTitle\":\"No feature requests yet\",\"noFeatureRequestsDescription\":\"New feature requests will show up, as soon as they get reported.\",\"resetFiltersOr\":\"Try to reset the filters or\",\"submitNewFeatureRequrest\":\"submit a new feature request\",\"email\":\"E-mail\",\"yourEmail\":\"Your e-mail\",\"markTheBug\":\"Mark the bug\",\"recordScreen\":\"Record screen\",\"clickAndDragToMarkTheBug\":\"Click and drag to mark the bug\",\"retry\":\"Retry\",\"mute\":\"Mute\",\"unmute\":\"Unmute\",\"browserNotSupported\":\"Browser not supported\",\"stopRecording\":\"Stop recording\",\"startRecording\":\"Start recording\",\"pickAColor\":\"Pick a color\",\"taskProgress\":\"{a} of {b} done\",\"aboutMinutes\":\"About {a} minutes left\",\"markAsDone\":\"Mark as done\",\"nextStep\":\"Next step\",\"undo\":\"Undo\",\"drawOnTheScreenToMarkTheBug\":\"Draw on the screen to mark the bug\",\"recordYourScreenToShowcaseTheBug\":\"Record your screen to showcase the bug\",\"writeReply\":\"Write a reply...\",\"recording\":\"Recording...\",\"chooseOption\":\"Choose one...\",\"chooseBotOption\":\"Please choose an option below.\",\"screenRecording\":\"Screen recording\",\"screenshot\":\"Screenshot\",\"within a few minutes\":\"within a few minutes\",\"within a few hours\":\"within a few hours\",\"within a day\":\"within a day\",\"weAreOffline\":\"We are currently offline but will get back to you as soon as possible.\",\"weAreBack\":\"We are back\",\"ppolicyIRead\":\"I read and accept the \",\"ppolicy\":\"privacy policy\",\"noMessages\":\"No messages yet\",\"submit\":\"Submit\",\"homeLabel\":\"Home\",\"chooseFile\":\"Choose a file or drag it here.\",\"hi\":\"Hi\",\"sendMessage\":\"Send us a message\",\"noChecklists\":\"You completed all tasks.\",\"noNews\":\"No news published yet.\",\"loadMore\":\"Load more\",\"suggestFeatureRequest\":\"We found existing feature requests that might align with your idea. Upvote the ones you like or go ahead and submit your own idea.\",\"conversationEnded\":\"Your conversation has ended.\",\"wrongConversationChannel\":\"To continue this conversation, please switch to {channel}.\",\"featureRequestShow\":\"Show\",\"composerGreeting\":\"Hey\",\"featureRequestSortRandom\":\"Random\",\"requestFeature\":\"Request a feature\",\"search\":\"Search...\",\"botReplyTime\":\"Our bot will reply instantly\",\"submitted\":\"Submitted\",\"inProgress\":\"In progress\",\"resolved\":\"Resolved\",\"noAnswer\":\"No answer found.\",\"featureRequests\":\"Feature requests\",\"roadmap\":\"Roadmap\",\"news\":\"News\",\"notDone\":\"Not done\",\"released\":\"Released\",\"all\":\"All\",\"comments\":\"Comments\",\"updates\":\"Updates\",\"writeComment\":\"Write a comment\",\"writeCommentPlaceholder\":\"Write a comment...\",\"send\":\"Send\",\"noComments\":\"No comments yet\",\"noUpdates\":\"No updates yet\",\"kickstartTheConversation\":\"Kickstart the conversation by writing a comment.\",\"weWillPostUpdates\":\"We will post updates on this feature request here.\",\"conversationHistoryMailMessage\":\"Hey there, we’ve attached the history of your last conversation.\"},\"fadebg\":true,\"stn\":true,\"sts\":true,\"stt\":true,\"visibleTeamMembers\":[\"64a50bcb812dfc547f25b7a1\",\"6759dc98e1a7594811091396\",\"6757d7071f07684d560b41be\"],\"name\":\"Evergreen ERP\",\"localizationOptions\":{\"language\":\"en\",\"rtl\":false}},\"projectActions\":{}}"
         },
         {
           "name": "gleap-widget-session-MUYkFaomRZDFwKtzWCO8WH2DIYLQKObz",
