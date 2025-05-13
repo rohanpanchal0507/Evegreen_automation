@@ -133,7 +133,7 @@ test('Purchase Order Creation Flow', async ({ page, context, browser }) => {
     await page.waitForSelector('div[role="option"]', {
       timeout: 10000,
       state: 'visible'
-    });
+    }); 
 
     // Now look specifically for Green
     const greenOption = await page.waitForSelector('div[role="option"]:has-text("Green")', { 
