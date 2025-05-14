@@ -2,30 +2,30 @@
   "cookies": [
     {
       "name": "CLID",
-      "value": "28b3d668b5ce46ce8518c773cec3c7ad.20250513.20260513",
+      "value": "2ba93134e61d4431bff0e574a0d28648.20250514.20260514",
       "domain": "www.clarity.ms",
       "path": "/",
-      "expires": 1778664949.67685,
+      "expires": 1778741154.899408,
       "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_clck",
-      "value": "b0766e%7C2%7Cfvv%7C0%7C1959",
+      "value": "1bri777%7C2%7Cfvw%7C0%7C1960",
       "domain": ".evergreenseamless.com",
       "path": "/",
-      "expires": 1778664951,
+      "expires": 1778741155,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
     },
     {
       "name": "MUID",
-      "value": "0B87B05B10CE60B914D8A5B011076164",
+      "value": "35517C139C9B6DF61DF869FF9D4E6CAE",
       "domain": ".bing.com",
       "path": "/",
-      "expires": 1780824953.169668,
+      "expires": 1780901169.669961,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -35,17 +35,17 @@
       "value": "0",
       "domain": ".c.bing.com",
       "path": "/",
-      "expires": 1747733753.169864,
+      "expires": 1747809969.670076,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "SRM_B",
-      "value": "0B87B05B10CE60B914D8A5B011076164",
+      "value": "35517C139C9B6DF61DF869FF9D4E6CAE",
       "domain": ".c.bing.com",
       "path": "/",
-      "expires": 1780824953.169918,
+      "expires": 1780901169.670114,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -62,10 +62,10 @@
     },
     {
       "name": "MUID",
-      "value": "0B87B05B10CE60B914D8A5B011076164",
+      "value": "35517C139C9B6DF61DF869FF9D4E6CAE",
       "domain": ".clarity.ms",
       "path": "/",
-      "expires": 1780824953.376865,
+      "expires": 1780901169.827555,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -75,7 +75,7 @@
       "value": "0",
       "domain": ".c.clarity.ms",
       "path": "/",
-      "expires": 1747733753.377023,
+      "expires": 1747809969.827608,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -85,17 +85,17 @@
       "value": "0",
       "domain": ".c.clarity.ms",
       "path": "/",
-      "expires": 1747129553.377106,
+      "expires": 1747205769.827636,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
       "name": "_clsk",
-      "value": "muh60k%7C1747128956526%7C2%7C1%7Cl.clarity.ms%2Fcollect",
+      "value": "14z234z%7C1747205173492%7C2%7C1%7Ci.clarity.ms%2Fcollect",
       "domain": ".evergreenseamless.com",
       "path": "/",
-      "expires": 1747215356,
+      "expires": 1747291573,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -115,7 +115,7 @@
         },
         {
           "name": "token",
-          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0NiwidXNlcm5hbWUiOiJHcmVlbiBBcnJvdyIsImlhdCI6MTc0NzEyODk1MywiZXhwIjoxNzQ4MzkwNDAwfQ.h-GZhCUG2GyxaH4-UhXGliFsHQWhrD788oQngbCvBjA"
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjI0NiwidXNlcm5hbWUiOiJHcmVlbiBBcnJvdyIsImlhdCI6MTc0NzIwNTE3MCwiZXhwIjoxNzQ4NDc2ODAwfQ.xVmyJNeEJ77uGDoDDaHLtJIMKjSDExbE6HfYUBMfDhU"
         },
         {
           "name": "user",

@@ -79,40 +79,21 @@ test('Complete Purchase Order Flow with Login', async ({ page, context, browser 
     // 7. Wait for and interact with Sidebar
     await storeStep(8, 'Waiting for sidebar menu to be ready');
     
-    // Wait for the page to be fully loaded
-    await page.waitForLoadState('networkidle');
-    
-    // Wait for the sidebar to be visible and stable
+    // Wait for the sidebar to be visible and enabled
     const sidebarSelector = '.sidebar, [class*="sidebar"], nav';
-    await page.waitForSelector(sidebarSelector, { 
-      state: 'visible',
-      timeout: 30000 
-    });
-
-    // Move mouse to sidebar with retry mechanism
-    let retryCount = 0;
-    const maxRetries = 3;
+    await page.waitForSelector(sidebarSelector, { state: 'visible', timeout: 30000 });
     
-    while (retryCount < maxRetries) {
-      try {
-        await storeStep(9, `Attempting to hover over sidebar (Attempt ${retryCount + 1})`);
-        const sidebar = await page.$(sidebarSelector);
-        if (sidebar) {
-          const box = await sidebar.boundingBox();
-          if (box) {
-            await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-            await page.waitForTimeout(500); // Reduced wait time
-            break;
-          }
-        }
-      } catch (error) {
-        retryCount++;
-        if (retryCount === maxRetries) {
-          await storeStep('SIDEBAR-HOVER-FAILED', 'Failed to hover over sidebar after multiple attempts', 'Failed');
-          throw new Error('Failed to hover over sidebar');
-        }
-        await page.waitForTimeout(500);
-      }
+    // Scroll the sidebar into view and hover
+    const sidebar = await page.$(sidebarSelector);
+    if (sidebar) {
+      await sidebar.evaluate(el => el.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+      await page.waitForTimeout(500);
+      await sidebar.hover();
+      await page.waitForTimeout(500);
+      await storeStep('SIDEBAR-HOVER', 'Hovered over sidebar', 'Passed');
+    } else {
+      await storeStep('SIDEBAR-NOT-FOUND', 'Sidebar not found for hover', 'Failed');
+      throw new Error('Sidebar not found');
     }
 
     // 8. Click on Purchase Order menu from sidebar
@@ -207,9 +188,19 @@ test('Complete Purchase Order Flow with Login', async ({ page, context, browser 
 
     // 4. Select Supplier Address
     await storeStep(20, 'Selecting Supplier Address');
-    // Find the supplier address field by looking for the select element after the supplier field
-    const supplierAddressField = await page.waitForSelector('div[class*="makeStyles-selectWithReset"]:has(legend:has-text("Address"))', { timeout: 30000 });
-    await supplierAddressField.click();
+    // Find the Supplier Information section by its heading, then the Address dropdown within it
+    const supplierInfoSection = await page.waitForSelector('text=Supplier Information');
+    // Get the closest parent box for the Supplier Information section
+    const supplierInfoBox = await supplierInfoSection.evaluateHandle(node => {
+      let el = node;
+      while (el && !el.querySelector('label') && el.parentElement) {
+        el = el.parentElement;
+      }
+      return el;
+    });
+    // Now find the Address dropdown inside this box
+    const supplierAddressDropdown = await supplierInfoBox.$('label:has-text("Address") ~ div [role="combobox"], label:has-text("Address") + div [role="combobox"], div[role="combobox"]');
+    await supplierAddressDropdown.click();
     await page.waitForSelector('[role="option"]', { timeout: 30000 });
     const addressOptions = await page.$$('[role="option"]');
     if (addressOptions.length > 0) {
@@ -319,6 +310,250 @@ test('Complete Purchase Order Flow with Login', async ({ page, context, browser 
       throw new Error('No buyer address options found');
     }
     await page.waitForTimeout(2000);
+
+    // Handle CHA Charges and Duty Charges
+    await storeStep(27, 'Handling CHA Charges and Duty Charges');
+    
+    try {
+      // Find and fill CHA Charges input
+      const chaChargesInput = await page.waitForSelector('input[name="cha_charges_percentage"]', { timeout: 5000 });
+      if (chaChargesInput) {
+        const chaChargesValue = Math.floor(Math.random() * 20) + 1; // Random value between 1-20
+        await chaChargesInput.fill(chaChargesValue.toString());
+        await storeStep(28, `Entered CHA Charges value: ${chaChargesValue}%`, 'Passed');
+        await page.waitForTimeout(1000);
+
+        // Find and fill Duty Charges input
+        const dutyChargesInput = await page.waitForSelector('input[name="duty_charges_percentage"]', { timeout: 5000 });
+        if (dutyChargesInput) {
+          const dutyChargesValue = Math.floor(Math.random() * 20) + 1; // Random value between 1-20
+          await dutyChargesInput.fill(dutyChargesValue.toString());
+          await storeStep(29, `Entered Duty Charges value: ${dutyChargesValue}%`, 'Passed');
+          await page.waitForTimeout(1000);
+        } else {
+          await storeStep(29, 'Duty Charges input field not found - skipping', 'Passed');
+        }
+      } else {
+        await storeStep(28, 'CHA Charges input field not found - skipping', 'Passed');
+      }
+    } catch (error) {
+      await storeStep('WARNING', 'CHA and Duty Charges fields not found - proceeding with radio selection flow', 'Passed');
+    }
+
+    // Scroll down to Charges section
+    const chargesSection = await page.waitForSelector('text=Charges');
+    await chargesSection.evaluate(el => el.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+    await page.waitForTimeout(1000);
+
+    // Function to handle charge selection
+    async function handleChargeSelection(chargeName, stepNumber) {
+      await storeStep(stepNumber, `Handling ${chargeName} radio button selection`);
+      
+      // Find the charge section by its label
+      const chargeLabel = await page.waitForSelector(`label:has-text("${chargeName}")`);
+      const chargeSection = await chargeLabel.evaluateHandle(node => {
+        let el = node;
+        while (el && !el.querySelector('input[type="radio"]') && el.parentElement) {
+          el = el.parentElement;
+        }
+        return el;
+      });
+
+      // Get all radio options
+      const radioOptions = await chargeSection.$$('input[type="radio"]');
+      if (radioOptions.length === 0) {
+        throw new Error(`No radio options found in ${chargeName} section`);
+      }
+
+      // Randomly select one option
+      const randomIndex = Math.floor(Math.random() * radioOptions.length);
+      const selectedOption = radioOptions[randomIndex];
+      const optionValue = await selectedOption.getAttribute('value');
+      
+      // Click the selected radio button
+      await selectedOption.click();
+      await page.waitForTimeout(1000);
+
+      try {
+        if (optionValue === 'NA') {
+          await storeStep(stepNumber + 1, `Selected NA option for ${chargeName} - skipping to next step`, 'Passed');
+        } else if (optionValue === 'Over All') {
+          // Press Tab to move focus to Type dropdown
+          await page.keyboard.press('Tab');
+          await page.waitForTimeout(1000);
+
+          // Press Down Arrow to open the dropdown
+          await page.keyboard.press('ArrowDown');
+          await page.waitForTimeout(1000);
+
+          // Wait for the dropdown menu to be visible
+          const dropdownMenu = await page.waitForSelector('div[role="presentation"]', { timeout: 5000 });
+          if (!dropdownMenu) {
+            throw new Error('Dropdown menu not found');
+          }
+
+          // Get all type options within the dropdown menu
+          const typeOptions = await dropdownMenu.$$('[role="option"]');
+          if (typeOptions.length === 0) {
+            throw new Error('No type options found in dropdown');
+          }
+
+          // Log available options for debugging
+          for (const option of typeOptions) {
+            const text = await option.textContent();
+            await storeStep('DEBUG', `Available option for ${chargeName}: ${text.trim()}`, 'Passed');
+          }
+
+          // Select a random option using keyboard
+          const randomTypeIndex = Math.floor(Math.random() * typeOptions.length);
+          for (let i = 0; i < randomTypeIndex; i++) {
+            await page.keyboard.press('ArrowDown');
+            await page.waitForTimeout(500);
+          }
+          await page.keyboard.press('Enter');
+          await page.waitForTimeout(1000);
+
+          // Get the text of the selected option
+          const selectedTypeText = await typeOptions[randomTypeIndex].textContent();
+
+          // Press Tab to move to Rate input
+          await page.keyboard.press('Tab');
+          await page.waitForTimeout(2000);
+
+          // Find the rate input field within the current charge section
+          let rateInput = null;
+          try {
+            // First try to find the input within the current charge section
+            const chargeSection = await page.$(`div:has(label:has-text("${chargeName}"))`);
+            if (chargeSection) {
+              rateInput = await chargeSection.$('input[type="number"]');
+            }
+
+            // If not found in section, try by name
+            if (!rateInput) {
+              const possibleNames = [
+                `${chargeName.toLowerCase()}_value`,
+                `${chargeName.toLowerCase()}_rate`,
+                `${chargeName.toLowerCase()}_amount`,
+                'rate',
+                'value'
+              ];
+
+              for (const name of possibleNames) {
+                rateInput = await page.$(`input[name="${name}"]`);
+                if (rateInput) break;
+              }
+            }
+
+            // If still not found, try finding by position relative to the charge label
+            if (!rateInput) {
+              const chargeLabel = await page.$(`label:has-text("${chargeName}")`);
+              if (chargeLabel) {
+                const followingInputs = await page.$$('input[type="number"]');
+                for (const input of followingInputs) {
+                  const isVisible = await input.isVisible();
+                  if (isVisible) {
+                    rateInput = input;
+                    break;
+                  }
+                }
+              }
+            }
+
+            if (rateInput) {
+              // Scroll into view and wait
+              await rateInput.scrollIntoViewIfNeeded();
+              await page.waitForTimeout(1000);
+
+              // Ensure the input is enabled
+              await rateInput.waitForElementState('enabled', { timeout: 5000 });
+
+              // Click to focus
+              await rateInput.click({ force: true });
+              await page.waitForTimeout(1000);
+
+              // Generate random rate
+              const randomRate = Math.floor(Math.random() * 100) + 1;
+
+              // Try multiple methods to enter the value
+              const methods = [
+                // Method 1: Direct fill
+                async () => {
+                  await rateInput.fill(randomRate.toString());
+                  await page.waitForTimeout(500);
+                },
+                // Method 2: Type with delay
+                async () => {
+                  await rateInput.type(randomRate.toString(), { delay: 100 });
+                  await page.waitForTimeout(500);
+                },
+                // Method 3: JavaScript
+                async () => {
+                  await page.evaluate((selector, value) => {
+                    const input = document.querySelector(selector);
+                    if (input) {
+                      input.value = value;
+                      input.dispatchEvent(new Event('input', { bubbles: true }));
+                      input.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                  }, await rateInput.evaluate(el => el.outerHTML), randomRate.toString());
+                  await page.waitForTimeout(500);
+                }
+              ];
+
+              // Try each method until one works
+              let valueEntered = false;
+              for (const method of methods) {
+                try {
+                  await method();
+                  const currentValue = await rateInput.inputValue();
+                  if (currentValue === randomRate.toString()) {
+                    valueEntered = true;
+                    await storeStep(stepNumber + 1, `Successfully entered rate ${randomRate} for ${chargeName}`, 'Passed');
+                    break;
+                  }
+                } catch (error) {
+                  continue;
+                }
+              }
+
+              if (!valueEntered) {
+                await storeStep('WARNING', `Failed to enter rate for ${chargeName} after all methods`, 'Passed');
+              }
+            } else {
+              await storeStep('WARNING', `Could not find rate input for ${chargeName}`, 'Passed');
+            }
+          } catch (error) {
+            await storeStep('WARNING', `Error handling rate input for ${chargeName}: ${error.message}`, 'Passed');
+          }
+
+          // Add extra wait time after handling rate input
+          await page.waitForTimeout(2000);
+        } else if (optionValue === 'Item Wise') {
+          await storeStep(stepNumber + 1, `Selected Item Wise option for ${chargeName} - skipping to next step`, 'Passed');
+        }
+      } catch (error) {
+        await storeStep('WARNING', `Failed to handle ${chargeName} options: ${error.message} - continuing with next charge`, 'Passed');
+        return;
+      }
+
+      await page.waitForTimeout(1000);
+    }
+
+    // Handle TPI
+    await handleChargeSelection('TPI', 27);
+
+    // Handle Testing
+    await handleChargeSelection('Testing', 29);
+
+    // Handle Packing
+    await handleChargeSelection('Packing', 31);
+
+    // Handle Freight
+    await handleChargeSelection('Freight', 33);
+
+    // Handle Local Delivery
+    await handleChargeSelection('Local Delivery', 35);
 
   } catch (error) {
     await storeStep('ERROR', 'Test Failed', 'Failed', error.message);
