@@ -16,24 +16,37 @@ const getReportFileName = (testFile) => {
   return path.join(reportDir, `${fileName}_Report.xlsx`);
 };
 
-// Function to format duration
-const formatDuration = ms => {
-  const h = Math.floor(ms / 3600000);
-  const m = Math.floor((ms % 3600000) / 60000);
-  const s = Math.floor((ms % 60000) / 1000);
-  const msRem = ms % 1000;
-  return `${h ? `${h}h ` : ''}${m ? `${m}m ` : ''}${s ? `${s}s ` : ''}${msRem ? `${msRem}ms` : ''}`.trim() || '0ms';
+// Format duration in a human-readable way
+const formatDuration = (ms) => {
+  if (ms < 1000) return `${ms}ms`;
+  const seconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  
+  if (hours > 0) {
+    return `${hours}h ${minutes % 60}m ${seconds % 60}s`;
+  }
+  if (minutes > 0) {
+    return `${minutes}m ${seconds % 60}s`;
+  }
+  return `${seconds}s`;
 };
 
-// Function to format details in a readable way
-const formatDetails = details => !details ? '' : typeof details === 'string' ? details : 
-  Object.entries(details).map(([k, v]) => `${k}: ${v}`).join('\n');
+// Format details object into a readable string
+const formatDetails = (details) => {
+  if (!details) return '';
+  if (typeof details === 'string') return details;
+  return Object.entries(details)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('\n');
+};
 
-// Track start time for each step
+// Track start time for each step and test
 let stepStartTime = null;
+let testStartTime = null;
 let currentReportFile = null;
 
-// Function to store step in Excel
+// Function to store step in Excel with improved formatting
 const storeStep = async (stepNumber, description, status = 'Passed', details = '') => {
   try {
     if (!currentReportFile) {
@@ -47,29 +60,91 @@ const storeStep = async (stepNumber, description, status = 'Passed', details = '
       workbook = XLSX.utils.book_new(); 
     }
 
-    const worksheet = workbook.Sheets['Steps'] || XLSX.utils.aoa_to_sheet([['Step Number', 'Description', 'Status', 'Details', 'Timestamp', 'Duration']]);
-    
-    const headerStyle = { font: { bold: true } };
-    ['Step Number', 'Description', 'Status', 'Details', 'Timestamp', 'Duration'].forEach((h, i) => {
-      worksheet[XLSX.utils.encode_cell({ r: 0, c: i })].s = headerStyle;
-    });
+    // Create or get the Steps worksheet
+    const stepsWorksheet = workbook.Sheets['Test Steps'] || XLSX.utils.aoa_to_sheet([
+      ['Step Number', 'Description', 'Status', 'Details', 'Start Time', 'Duration']
+    ]);
+
+    // Create or get the Summary worksheet
+    const summaryWorksheet = workbook.Sheets['Test Summary'] || XLSX.utils.aoa_to_sheet([
+      ['Metric', 'Value'],
+      ['Test Name', path.basename(currentReportFile, '_Report.xlsx')],
+      ['Start Time', new Date().toLocaleString('en-IN')],
+      ['Total Steps', '0'],
+      ['Passed Steps', '0'],
+      ['Failed Steps', '0'],
+      ['Total Duration', '0'],
+      ['Average Step Duration', '0']
+    ]);
 
     const now = new Date();
     const timestamp = now.toLocaleString('en-IN', {
       year: 'numeric', month: '2-digit', day: '2-digit',
       hour: '2-digit', minute: '2-digit', second: '2-digit',
-      hour12: true, timeZone: 'Asia/Kolkata'
-    }).replace(',', '').replace(/\//g, '-');
+      hour12: true
+    });
 
     const duration = stepStartTime ? formatDuration(now - stepStartTime) : '0ms';
     stepStartTime = now;
 
-    XLSX.utils.sheet_add_aoa(worksheet, [[stepNumber, description, status, formatDetails(details), timestamp, duration]], { origin: -1 });
-    
-    if (!workbook.Sheets['Steps']) XLSX.utils.book_append_sheet(workbook, worksheet, 'Steps');
-    
-    await new Promise(r => setTimeout(r, 100));
-    
+    // Add step to Steps worksheet
+    XLSX.utils.sheet_add_aoa(stepsWorksheet, [[
+      stepNumber,
+      description,
+      status,
+      formatDetails(details),
+      timestamp,
+      duration
+    ]], { origin: -1 });
+
+    // Update summary statistics
+    const totalSteps = XLSX.utils.sheet_to_json(stepsWorksheet).length;
+    const passedSteps = XLSX.utils.sheet_to_json(stepsWorksheet).filter(row => row.Status === 'Passed').length;
+    const failedSteps = XLSX.utils.sheet_to_json(stepsWorksheet).filter(row => row.Status === 'Failed').length;
+    const totalDuration = testStartTime ? formatDuration(now - testStartTime) : '0ms';
+    const avgDuration = testStartTime ? formatDuration((now - testStartTime) / totalSteps) : '0ms';
+
+    // Update summary worksheet
+    XLSX.utils.sheet_add_aoa(summaryWorksheet, [
+      ['Total Steps', totalSteps],
+      ['Passed Steps', passedSteps],
+      ['Failed Steps', failedSteps],
+      ['Total Duration', totalDuration],
+      ['Average Step Duration', avgDuration]
+    ], { origin: 'A4' });
+
+    // Set column widths for better readability
+    const stepsColWidths = [
+      { wch: 15 },  // Step Number
+      { wch: 50 },  // Description
+      { wch: 10 },  // Status
+      { wch: 40 },  // Details
+      { wch: 20 },  // Start Time
+      { wch: 15 }   // Duration
+    ];
+
+    const summaryColWidths = [
+      { wch: 20 },  // Metric
+      { wch: 40 }   // Value
+    ];
+
+    stepsWorksheet['!cols'] = stepsColWidths;
+    summaryWorksheet['!cols'] = summaryColWidths;
+
+    // Add or update worksheets in workbook
+    if (!workbook.Sheets['Test Steps']) {
+      XLSX.utils.book_append_sheet(workbook, stepsWorksheet, 'Test Steps');
+    } else {
+      workbook.Sheets['Test Steps'] = stepsWorksheet;
+    }
+
+    if (!workbook.Sheets['Test Summary']) {
+      XLSX.utils.book_append_sheet(workbook, summaryWorksheet, 'Test Summary');
+    } else {
+      workbook.Sheets['Test Summary'] = summaryWorksheet;
+    }
+
+    // Write the workbook with retry mechanism
     for (let retries = 3; retries > 0; retries--) {
       try {
         XLSX.writeFile(workbook, currentReportFile);
@@ -84,76 +159,60 @@ const storeStep = async (stepNumber, description, status = 'Passed', details = '
   }
 };
 
-// Function to initialize Excel file
+// Function to initialize Excel file with improved formatting
 const initializeExcelFile = (testFile) => {
   currentReportFile = getReportFileName(testFile);
+  testStartTime = new Date();
+  stepStartTime = testStartTime;
+
   const workbook = XLSX.utils.book_new();
-  const worksheet = XLSX.utils.aoa_to_sheet([['Step Number', 'Description', 'Status', 'Details', 'Timestamp', 'Duration']]);
-  
-  const headerStyle = { font: { bold: true } };
-  ['Step Number', 'Description', 'Status', 'Details', 'Timestamp', 'Duration'].forEach((h, i) => {
-    worksheet[XLSX.utils.encode_cell({ r: 0, c: i })].s = headerStyle;
-  });
-  
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Steps');
+
+  // Initialize Steps worksheet
+  const stepsWorksheet = XLSX.utils.aoa_to_sheet([
+    ['Step Number', 'Description', 'Status', 'Details', 'Start Time', 'Duration']
+  ]);
+
+  // Initialize Summary worksheet
+  const summaryWorksheet = XLSX.utils.aoa_to_sheet([
+    ['Metric', 'Value'],
+    ['Test Name', path.basename(testFile, '.spec.js')],
+    ['Start Time', testStartTime.toLocaleString('en-IN')],
+    ['Total Steps', '0'],
+    ['Passed Steps', '0'],
+    ['Failed Steps', '0'],
+    ['Total Duration', '0'],
+    ['Average Step Duration', '0']
+  ]);
+
+  // Set column widths
+  stepsWorksheet['!cols'] = [
+    { wch: 15 },  // Step Number
+    { wch: 50 },  // Description
+    { wch: 10 },  // Status
+    { wch: 40 },  // Details
+    { wch: 20 },  // Start Time
+    { wch: 15 }   // Duration
+  ];
+
+  summaryWorksheet['!cols'] = [
+    { wch: 20 },  // Metric
+    { wch: 40 }   // Value
+  ];
+
+  // Add worksheets to workbook
+  XLSX.utils.book_append_sheet(workbook, summaryWorksheet, 'Test Summary');
+  XLSX.utils.book_append_sheet(workbook, stepsWorksheet, 'Test Steps');
+
+  // Write the workbook
   XLSX.writeFile(workbook, currentReportFile);
-  stepStartTime = new Date();
 };
 
-// Function to generate fake data
-const generateFakeData = credentials => {
-  const pipeTypes = ['Stainless Steel', 'Carbon Steel', 'Galvanized', 'PVC', 'Copper'];
-  const pipeSizes = ['1/2"', '3/4"', '1"', '1.5"', '2"', '3"', '4"', '6"'];
-  const pipeStandards = ['ASTM A53', 'ASTM A106', 'API 5L', 'ASME B36.10M', 'EN 10255'];
-  const pipeGrades = ['GR.B', 'GR.A', 'X42', 'X52', 'X60', '304', '316'];
-  const surfaceFinishes = ['Black', 'Galvanized', 'Bare', 'Coated', 'Polished'];
-
-  const deliveryDetailsContent = `Delivery of ${faker.helpers.arrayElement(pipeTypes)} pipes, 
-  Size: ${faker.helpers.arrayElement(pipeSizes)}, 
-  Quantity: ${faker.number.int({ min: 100, max: 1000 })} meters, 
-  Delivery Date: ${faker.date.future({ days: 30 }).toLocaleDateString()}, 
-  Special Instructions: ${faker.helpers.arrayElement([
-    'Handle with care - fragile material',
-    'Store in dry conditions',
-    'Protect from direct sunlight',
-    'Stack vertically only',
-    'Use protective caps on both ends'
-  ])}`;
-
-  const remarksContent = `Technical Specifications:
-1. Material: ${faker.helpers.arrayElement(pipeTypes)} Pipes
-2. Standard: ${faker.helpers.arrayElement(pipeStandards)}
-3. Grade: ${faker.helpers.arrayElement(pipeGrades)}
-4. Surface Finish: ${faker.helpers.arrayElement(surfaceFinishes)}
-5. Testing Requirements: ${faker.helpers.arrayElement([
-    'Hydrostatic testing required',
-    'Visual inspection and dimensional check',
-    'Full NDT testing required',
-    'Mill test certificate required',
-    'Third-party inspection required'
-  ])}
-6. Packaging: ${faker.helpers.arrayElement([
-    'Bundled with steel straps',
-    'Individual pipe protection',
-    'Wooden crates',
-    'Plastic end caps',
-    'Waterproof wrapping'
-  ])}
-7. Additional Notes: ${faker.helpers.arrayElement([
-    'All pipes must be new and unused',
-    'Material certificates must be provided',
-    'Traceability required for each pipe',
-    'Special handling instructions apply',
-    'Custom marking required'
-  ])}`;
-
+// Generate fake data for testing
+const generateFakeData = (credentials) => {
   return {
-    customerEnquiryNo: faker.number.int({ 
-      min: credentials.testData.customerEnquiryNo.min, 
-      max: credentials.testData.customerEnquiryNo.max 
-    }).toString(),
-    deliveryDetailsContent,
-    remarksContent
+    customerEnquiryNo: `ENQ${faker.random.numeric(5)}`,
+    deliveryDetailsContent: faker.lorem.paragraph(),
+    remarksContent: faker.lorem.sentences(2)
   };
 };
 

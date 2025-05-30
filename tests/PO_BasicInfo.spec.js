@@ -1,4 +1,4 @@
-const { test } = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 const credentials = require('../config/config');
 const { storeStep, initializeExcelFile, generateFakeData } = require('../utils/testUtils');
 const path = require('path');
@@ -525,6 +525,8 @@ test('Complete Purchase Order Flow with Login', async ({ page, context, browser 
 
     // Handle Local Delivery
     await handleChargeSelection('Local Delivery', 35);
+
+    // --- Payment and Terms Flow ---
 
     // Scroll to Payment Terms section
     await storeStep(36, 'Scrolling to Payment Terms section');
